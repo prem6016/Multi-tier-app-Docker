@@ -1,0 +1,96 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f5f5f5;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status.connected .status-indicator {
+  background: #4caf50;
+}
+
+.status.error .status-indicator {
+  background: #f44336;
+}
+
+.status.connecting .status-indicator {
+  background: #ff9800;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.status-text {
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.message-box {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.message-box p {
+  color: #1976d2;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.info {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.info p {
+  color: #666;
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
