@@ -4,4 +4,5 @@ build/
 dist/
 *.log
 .DS_Store
+*.sh
 

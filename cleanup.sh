@@ -13,9 +13,13 @@ check_containers() {
     fi
 }
 
-# Stop and remove containers
+# Stop and remove containers (force remove if needed)
 echo "Stopping and removing containers..."
-docker-compose down
+docker-compose down --remove-orphans 2>/dev/null || true
+
+# Remove any orphaned containers
+echo "Removing orphaned containers..."
+docker-compose rm -f 2>/dev/null || true
 
 # Remove images (optional - uncomment if needed)
 if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then

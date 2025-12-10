@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+// Use relative URL to go through nginx proxy (internal Docker network)
+const API_URL = process.env.REACT_APP_API_URL || "";
 
 function App() {
   const [message, setMessage] = useState("Loading...");
