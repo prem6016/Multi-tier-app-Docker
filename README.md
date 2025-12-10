@@ -11,6 +11,7 @@ This is a multi-tier application consisting of a React frontend and Node.js API 
 ### Installation Commands
 
 #### Ubuntu/Debian:
+
 ```bash
 # Update package index
 sudo apt-get update
@@ -27,6 +28,7 @@ sudo usermod -aG docker $USER
 ```
 
 #### Amazon Linux 2:
+
 ```bash
 # Install Docker
 sudo yum install -y docker git
@@ -41,6 +43,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ## Deployment Steps
 
 ### 1. Clone the Repository
+
 ```bash
 git clone <repository-url>
 cd multi-tier-app
@@ -49,11 +52,13 @@ cd multi-tier-app
 ### 2. Configure Public IP
 
 Create a `.env` file from the example:
+
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` and replace `your.public.ip.address` with your cloud VM's public IP:
+
 ```bash
 nano .env
 # or
@@ -61,11 +66,13 @@ vi .env
 ```
 
 Example:
+
 ```
 PUBLIC_IP=54.123.45.67
 ```
 
 **Important:** You can find your public IP using:
+
 ```bash
 curl http://checkip.amazonaws.com
 # or
@@ -79,6 +86,7 @@ docker-compose up -d --build
 ```
 
 This will:
+
 - Build the frontend React application
 - Build the API backend service
 - Start both services in detached mode
@@ -87,10 +95,13 @@ This will:
 
 Open the following ports in your cloud VM's security group:
 
-- **Port 8080** (TCP) - Frontend access
-- **Port 5000** (TCP) - API access (optional, if direct API access needed)
+- **Port 8080** (TCP) - Frontend access (required)
+- **Port 5000** (TCP) - API access (optional, only if direct API access needed)
+
+**Note:** Frontend communicates with backend internally via Docker network, so no security group changes needed for internal communication. Port 5000 is only needed if you want to access the API directly from outside.
 
 #### AWS EC2 Security Group:
+
 1. Go to EC2 Console → Security Groups
 2. Select your instance's security group
 3. Edit Inbound Rules
@@ -101,6 +112,7 @@ Open the following ports in your cloud VM's security group:
 ### 5. Verify Deployment
 
 Access the application:
+
 - **Frontend:** `http://<your-public-ip>:8080`
 - **API Health Check:** `http://<your-public-ip>:5000/api/health`
 - **API Info:** `http://<your-public-ip>:5000/api/info`
@@ -122,6 +134,7 @@ docker-compose logs -f api
 ## Troubleshooting
 
 ### Services not starting:
+
 ```bash
 # Check logs
 docker-compose logs
@@ -132,11 +145,13 @@ docker-compose up -d --build
 ```
 
 ### Cannot access from browser:
+
 - Verify security group rules are applied
 - Check if ports are open: `netstat -tuln | grep -E '8080|5000'`
 - Verify firewall settings on the VM
 
 ### Update Public IP:
+
 1. Edit `.env` file with new IP
 2. Restart services: `docker-compose restart`
 
@@ -155,4 +170,3 @@ docker-compose down -v
 - **Frontend:** React app served via Nginx (Port 8080)
 - **Backend API:** Node.js/Express (Port 5000)
 - **Network:** Docker bridge network for inter-service communication
-
